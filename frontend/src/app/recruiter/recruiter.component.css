@@ -1,0 +1,30 @@
+.card {
+    width: 100%;
+    max-width: 60rem;
+    height: 30vh;
+    overflow: auto;
+}
+
+.cardButton {
+    /* background-color: aqua; */
+    width: 100%;
+    max-width: 60rem;
+    height: 0%;
+    overflow: auto;
+}
+
+.topBtns{
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 40%;
+}
+
+.container {
+    padding-left: 65px;
+    width: 100%;
+}
+
+.table {
+    width: 90%;
+}

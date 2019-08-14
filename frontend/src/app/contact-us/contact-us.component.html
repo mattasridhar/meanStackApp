@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+<div class="container jumbobox" *ngIf="speechService.speechSupported">
+    <h2 class="text-center">Ask Your Concerns</h2>
+    <p>Browser is compatible for Speech Recognition Functionality.
+        <a class="alert-link"
+            href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility">
+            Check here for browser compatibility</a></p>
+    <ul>
+        <li>
+            <b>InYuGo</b> starts listening to you the moment you visit the Contact-Us page. If prompted, grant the app
+            permission to use your device's microphone.
+        </li>
+        <li>Say <em><u><b>' HeyListen '</b></u></em> to start recording your concerns. Say <em><u><b>' StopListening
+                        '</b></u></em> to stop
+            the using the
+            Voice recognition feature.</li>
+        <li>If you see <img class="embedIcon" src="/assets/images/microphoneEnabled.png">icon, the Voice Recognition
+            feature is stopped. Click to use the Voice Recognition
+            Feature. If prompted, grant the app permission to use your device's microphone.</li>
+        <li>Ask <em>one query at a time</em>, then wait for the app to assess your query to fetch the appropriate
+            response. This
+            could take a few seconds based on the query.</li>
+        <li>If you see <img class="embedIcon" src="/assets/images/microphoneDisabled.png">, the Voice Recognition
+            feature is still active. Say <em><u><b>' StopListening '</b></u></em> or Click on the icon at any time to
+            stop the use of our
+            Voice Recognition Feature and enter (or edit) search manually.</li>
+    </ul>
+    <div class="row mb-3">
+        <div class="col btn-group" id="wrapper">
+            <button class="btn btn-default" (click)="speechService.startListening()"
+                [disabled]="speechService.isListening" *ngIf="!speechService.isListening">
+                <img class="icon" src="/assets/images/microphoneEnabled.png">
+            </button>
+            <button class="btn btn-default" (click)="speechService.stopListening()"
+                [disabled]="!speechService.isListening" *ngIf="speechService.isListening">
+                <img class="icon" src="/assets/images/microphoneDisabled.png">
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="hasError || !speechService.speechSupported">
+    <div class="col">
+        <p class="alert alert-warning">
+            {{errorMsg}}
+            <em><a class="alert-link"
+                    href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility">
+                    Check here for browser compatibility</a></em>
+        </p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <form #form="ngForm">
+                <div class="form-group">
+                    <p class="bg-info">{{infoText}}</p>
+                    <div class="input-group">
+                        <input class="form-control" name="concern" type="text" value={{concernSpoken}}
+                            [(ngModel)]="concernSpoken">
+                        <div class="input-group-prepend">
+                            <input type="submit" value="Search" class="btn btn-warning btn-sm rounded-0">
+                            <!--ToDo: Have to implement the Functionality for this button -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" *ngIf="hasResultError">
+                        <div class="col">
+                            <p class="alert alert-warning">
+                                {{errorResultMsg}}
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="resultArea" *ngIf="hasResults">
+                        <label>Please see below for the Response to your concern.</label>
+                        <input class="form-control" type="text" placeholder="Concern Requested: {{concernRaised}}"
+                            readonly>
+                        <textarea class="form-control resultsArea" readonly>{{resultFetched}}</textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

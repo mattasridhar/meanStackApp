@@ -1,0 +1,242 @@
+<div class="container" *ngIf="showJobs">
+    <div class="container-fluid">
+        <div class="cardButton">
+            <div class="card-header">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2 topBtns" role="group">
+                        <button type="button" class="btn btn-success" (click)="createNewJob()">Create Job
+                            Opening</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-primary mb-1" *ngFor="let job of displayJobs">
+            <div class="card-header">
+                <button type="button" class="btn btn-primary btn-lg btn-block" disabled>{{job.title}}</button>
+                <hr>
+                <p class="card-text">{{job.location}}</p>
+            </div>
+
+            <div class="card-body">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{job.type}}</p>
+                    <footer class="blockquote-footer">{{job.description}}</footer>
+                </blockquote>
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group">
+                        <button type="button" class="btn btn-secondary" (click)="populateEditJob(job._id)">Edit</button>
+                        <button type="button" class="btn btn-info" (click)="showApplicants(job._id)">View
+                            Applicants</button>
+                        <button type="button" class="btn btn-secondary btn-warning"
+                            (click)="deleteJob(job._id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div id='editJobPage' *ngIf="isEditJob">
+                <form #form="ngForm" (ngSubmit)="saveEditedJob(form)">
+
+                    <div class="form-group">
+                        <label hidden>Job Id</label>
+                        <input id="jobId" name="jobId" class="form-control" [(ngModel)]="jobId" disabled hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Job Title</label>
+                        <input id="title" name="title" class="form-control" [(ngModel)]="title" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Organization</label>
+                        <input type="text" class="form-control" name="company" value="" [(ngModel)]="company" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Type</label>
+                        <input type="text" class="form-control" name="type" value="" [(ngModel)]="type">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Salary Range</label>
+                        <input type="text" class="form-control" name="salary" value="" [(ngModel)]="salary">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Location</label>
+                        <input type="text" class="form-control" name="location" value="" [(ngModel)]="location">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <input type="text" class="form-control" name="description" value="" [(ngModel)]="description">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Qualification</label>
+                        <input type="text" class="form-control" name="qualification" value=""
+                            [(ngModel)]="qualification">
+                    </div>
+
+                    <button type="button" class="btn btn-info" (click)="saveEditedJob(form)">Save Changes</button>
+                    <button type="cancel" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                </form>
+            </div>
+
+            <div id='editJobPage' *ngIf="isNewJob">
+                <form #form="ngForm" (ngSubmit)="storeJob(form)">
+
+                    <div class="form-group">
+                        <label for="">Job Title</label>
+                        <input type="text" id="title" name="title" class="form-control" [(ngModel)]="title" required
+                            #titleText="ngModel">
+                        <div *ngIf="titleText.invalid && (titleText.dirty || titleText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="titleText.errors.required">
+                                Job Title is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Organization</label>
+                        <input type="text" class="form-control" name="company" value="" [(ngModel)]="company" required
+                            #companyText="ngModel">
+                        <div *ngIf="companyText.invalid && (companyText.dirty || companyText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="companyText.errors.required">
+                                Organization is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Type</label>
+                        <input type="text" class="form-control" name="type" value="" [(ngModel)]="type">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Salary Range</label>
+                        <input type="text" class="form-control" name="salary" value="" [(ngModel)]="salary" required
+                            #salaryText="ngModel">
+                        <div *ngIf="salaryText.invalid && (salaryText.dirty || salaryText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="salaryText.errors.required">
+                                Salary is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Location</label>
+                        <input type="text" class="form-control" name="location" value="" [(ngModel)]="location" required
+                            #locationText="ngModel">
+                        <div *ngIf="locationText.invalid && (locationText.dirty || locationText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="locationText.errors.required">
+                                Location is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <input type="text" class="form-control" name="description" value="" [(ngModel)]="description"
+                            required #descText="ngModel">
+                        <div *ngIf="descText.invalid && (descText.dirty || descText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="descText.errors.required">
+                                Description is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Qualification</label>
+                        <input type="text" class="form-control" name="qualification" value=""
+                            [(ngModel)]="qualification" required #qualText="ngModel">
+                        <div *ngIf="qualText.invalid && (qualText.dirty || qualText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="qualText.errors.required">
+                                Qualification is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button type="reset" class="btn btn-info" (click)="storeJob(form)" *ngIf="isNewJob">Save</button>
+                    <button type="cancel" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                </form>
+            </div>
+            <br>
+            <div id='error' *ngIf='hasError' class="alert alert-danger">{{errorMessage}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="container-fluid">
+
+        <table class="table table-hover" *ngIf="showJobApplicants">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col" *ngFor="let header of tableHeaders">{{header}}</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr *ngFor="let applicant of jobApplicants">
+                    <th scope="row">{{applicant.title}}</th>
+                    <td>{{applicant.student}}</td>
+                    <td>{{applicant.qualification}}</td>
+                    <td><button type="reset" class="btn btn-warning"
+                            (click)="viewApplicant(applicant.studentId, applicant.jobId)">View
+                            Applicant</button></td>
+                    <td><button type="reset" class="btn btn-warning"
+                            (click)="rejectAppliedJob(applicant._id, applicantInfo.firstname, applicantInfo.lastname, applicantInfo.email)">Reject
+                            Applicant</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="container-fluid" *ngIf="showApplicant">
+            <div class="jumbotron">
+                <h1 class="display-3">{{applicantInfo.firstname}} {{applicantInfo.lastname}}</h1>
+                <p class="lead">Contact: {{applicantInfo.contact}}</p>
+                <p class="lead">E-mail: {{applicantInfo.email}}</p>
+                <hr class="my-4">
+                <div class="card-header">About: {{applicantJobInfo.about}}</div>
+                <div class="card-header">Qualifications: {{applicantJobInfo.qualification}}</div>
+            </div>
+
+        </div>
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group">
+
+                <button type="cancel" class="btn btn-danger" (click)="cancelList()" *ngIf="!showJobs">Cancel</button>
+                <button type="reset" class="btn btn-warning" *ngIf="jobApplicants?.length > 0 && showApplicant"
+                    (click)="rejectAppliedJob(applicant._id, applicantInfo.firstname, applicantInfo.lastname, applicantInfo.email)">Reject</button>
+                <button type="accept" class="btn btn-primary"
+                    (click)="acceptAppliedJob(applicantInfo.firstname, applicantInfo.lastname, applicantInfo.email)"
+                    *ngIf="jobApplicants?.length > 0 && showApplicant">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>

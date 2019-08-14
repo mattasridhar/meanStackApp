@@ -1,0 +1,193 @@
+<div class="container" *ngIf="showJobs">
+    <div class="container-fluid">
+        <div class="cardButton">
+            <div class="card-header">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2 topBtns" role="group">
+                        <button type="button" class="btn btn-success" (click)="appliedJobStatus()">Check Applied Job
+                            Status</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-primary mb-1" *ngFor="let job of displayJobs">
+            <div class="card-header">
+                <button type="button" class="btn btn-primary btn-lg btn-block" disabled>{{job.title}}</button>
+                <hr>
+                <p class="card-text">{{job.location}}</p>
+            </div>
+
+            <div class="card-body">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{job.type}}</p>
+                    <footer class="blockquote-footer">{{job.description}}</footer>
+                </blockquote>
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group">
+                        <button type="button" class="btn btn-secondary btn-warning" (click)="showJobInfo(job._id)">Full
+                            Details</button>
+                        <button type="button" class="btn btn-primary" (click)="populateJob(job._id)">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+
+            <div id='applyJobPage' *ngIf="isApplyJob">
+                <form #form="ngForm" (ngSubmit)="storeJob(form)">
+
+                    <div class="form-group">
+                        <label for="">Job Title</label>
+                        <input type="text" id="title" name="title" class="form-control" [(ngModel)]="title" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Organization</label>
+                        <input type="text" class="form-control" name="company" value="" [(ngModel)]="company" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Applicant ID</label>
+                        <input type="text" class="form-control" name="student" value="" [(ngModel)]="student" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Applicant Name</label>
+                        <input type="text" class="form-control" name="studentName" value="" [(ngModel)]="studentName"
+                            disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Contact</label>
+                        <input type="text" class="form-control" name="contact" value="" [(ngModel)]="contact"
+                            minlength="10" required #contactText="ngModel">
+                        <div *ngIf="contactText.invalid && (contactText.dirty || contactText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="contactText.errors.required">
+                                Contact is required.
+                            </div>
+                            <div *ngIf="contactText.errors.minlength">
+                                Contact must be 10 characters long.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="text" class="form-control" name="email" value="" [(ngModel)]="email" required
+                            #emailText="ngModel" required>
+                        <div *ngIf="emailText.invalid && (emailText.dirty || emailText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="emailText.errors.required">
+                                Email is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Address</label>
+                        <input type="text" class="form-control" name="address" value="" [(ngModel)]="address"
+                            #addressText="ngModel" required>
+                        <div *ngIf="addressText.invalid && (addressText.dirty || addressText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="addressText.errors.required">
+                                Address is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">About Me</label>
+                        <input type="text" class="form-control" name="about" value="" [(ngModel)]="about"
+                            placeholder="Tell us briefly about youself in less than 300 characters" maxlength="300"
+                            #aboutText="ngModel">
+                        <div *ngIf="aboutText.invalid && (aboutText.dirty || aboutText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="name.errors.maxlength">
+                                Character count limit reached. Please reduce content to less than 300 characters.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Qualification</label>
+                        <input type="text" class="form-control" name="qualification" value=""
+                            [(ngModel)]="qualification" #qualText="ngModel">
+                        <div *ngIf="qualText.invalid && (qualText.dirty || qualText.touched)"
+                            class="alert alert-danger">
+
+                            <div *ngIf="qualText.errors.required">
+                                Qualification is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button type="reset" class="btn btn-info" (click)="saveAppliedJob(form)">Apply Job</button>
+                    <button type="cancel" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                </form>
+            </div>
+            <br>
+            <div id='error' *ngIf='hasError' class="alert alert-danger">{{errorMessage}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="showInfo">
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <h1 class="display-3">{{jobInfo.title}}</h1>
+            <p class="lead">{{jobInfo.type}}, {{jobInfo.location}}</p>
+            <hr class="my-4">
+            <div class="card-header">Job Description</div>
+            <p>{{jobInfo.description}}</p>
+            <hr class="my-4">
+            <div class="card-header">Job Qualification</div>
+            <p>{{jobInfo.qualification}}</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" (click)="populateJob(jobInfo._id)" role="button">Apply for this
+                    Job</a>
+                <button type="cancel" class="btn btn-danger" (click)="cancel()">Cancel</button>
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<div class="container" *ngIf="showAppliedJobs">
+    <div class="container-fluid">
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col" *ngFor="let header of tableHeaders">{{header}}</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr *ngFor="let job of appliedJobs">
+                    <th scope="row">{{job.title}}</th>
+                    <td>{{job.company}}</td>
+                    <td><button type="reset" class="btn btn-warning" (click)="deleteAppliedJob(job._id)">Delete Applied
+                            Job</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="cancel" class="btn btn-danger" (click)="cancel()">Cancel</button>
+
+    </div>
+</div>

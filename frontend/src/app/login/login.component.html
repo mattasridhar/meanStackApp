@@ -1,0 +1,124 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+
+            <div id='loginPage'>
+                <form #form="ngForm" *ngIf="isLogin">
+                    <div class="form-group">
+                        <label for="">Username</label>
+                        <input type="text" class="form-control" name="username" value="" [(ngModel)]="username" required
+                            #name="ngModel">
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+
+                            <div *ngIf="name.errors.required">
+                                User Name is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" class="form-control" name="password" value="" [(ngModel)]="password"
+                            required #pwd="ngModel">
+                        <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="alert alert-danger">
+
+                            <div *ngIf="pwd.errors.required">
+                                Password is required.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-success" (click)="loginUser(form)">Login</button>
+                    <button type="button" class="btn btn-info" (click)="registerUser(form)">Register</button>
+                    <button type="reset" class="btn btn-warning" (click)="resetPage(form)">Reset</button>
+                </form>
+                <form #form="ngForm" (ngSubmit)="registerUser(form)" *ngIf="!isLogin">
+
+                    <div class="form-group">
+                        <label for="">First Name</label>
+
+
+                        <input id="name" name="firstname" class="form-control" required minlength="4"
+                            appForbiddenName="admin" [(ngModel)]="firstname" #name="ngModel">
+
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+
+                            <div *ngIf="name.errors.required">
+                                First Name is required.
+                            </div>
+                            <div *ngIf="name.errors.minlength">
+                                First Name must be at least 4 characters long.
+                            </div>
+                            <div *ngIf="name.errors.forbiddenName">
+                                First Name cannot be Admin.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Last Name</label>
+                        <input type="text" class="form-control" name="lastname" value="" [(ngModel)]="lastname">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">E-mail</label>
+                        <input type="text" class="form-control" name="email" value="" [(ngModel)]="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Contact</label>
+                        <input type="number" class="form-control" name="contact" value="" [(ngModel)]="contact">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Address</label>
+                        <input type="text" class="form-control" name="address" value="" [(ngModel)]="address">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" name="isAdmin" value="isAdmin" [(ngModel)]="isAdmin"> isAdmin
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" name="isRecruiter" value="isRecruiter" [(ngModel)]="isRecruiter">
+                        isRecruiter
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" name="isStudent" value="isStudent" [(ngModel)]="isStudent"> isStudent
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Referrer Name</label>
+                        <input type="text" class="form-control" name="referrerName" value="" [(ngModel)]="referrerName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Username</label>
+                        <input type="text" class="form-control" name="username" value="" [(ngModel)]="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" class="form-control" name="password" value="" [(ngModel)]="password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Verify Password</label>
+                        <input type="password" class="form-control" name="verifyPassword" value=""
+                            [(ngModel)]="verifyPassword">
+                    </div>
+
+                    <button type="button" class="btn btn-info" (click)="registerUser(form)">Register</button>
+                    <button type="reset" class="btn btn-warning" (click)="resetPage(form)">Reset</button>
+                    <button type="cancel" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                </form>
+            </div>
+            <br>
+            <div id='error' *ngIf='hasError' class="alert alert-danger">{{errorMessage}}</div>
+        </div>
+    </div>
+</div>
