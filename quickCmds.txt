@@ -1,0 +1,5 @@
+cmd:	sudo lsof -i tcp:<PORT>
+	Ex:	sudo lsof -i tcp:1990
+
+cmd:	kill -9 <PID>
+	Ex:	kill -9 369
