@@ -19,7 +19,7 @@ const studentServices = require('./services/studentUrls');
 var app = express();
 
 //connecting MongoDb
-mongoose.connect(mongoURI, { useNewUrlParser: true, useFindAndModify: false });
+/* mongoose.connect(mongoURI, { useNewUrlParser: true, useFindAndModify: false });
 
 mongoose.connection.on('connected', () => {
     console.log("meanStackApp DB connected");
@@ -27,7 +27,17 @@ mongoose.connection.on('connected', () => {
 
 mongoose.connection.on('error', (e) => {
     console.log(e + " \nError while connecting to meanStackApp");
+}); */
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://overlordsridhar:Sri19dhar@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+    const collection = client.db("test").collection("devices");
+    // perform actions on the collection object
+    client.close();
 });
+
 
 //app functions
 app.use(cors());
