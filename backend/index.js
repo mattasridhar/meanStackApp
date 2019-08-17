@@ -7,8 +7,9 @@ var mongoose = require('mongoose');
 var http = require('http');
 
 // //declaring constants
-const PORT = 1990;
+const PORT = process.env.PORT || 1990;
 const HOST = '127.0.0.1';
+const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/meanStackApp';
 const services = require('./services/serviceUrls');
 const concernServices = require('./services/concernUrls');
 const recruiterServices = require('./services/recruiterUrls');
@@ -17,7 +18,7 @@ const studentServices = require('./services/studentUrls');
 var app = express();
 
 //connecting MongoDb
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/meanStackApp', { useNewUrlParser: true, useFindAndModify: false });
+mongoose.connect(mongoURI, { useNewUrlParser: true, useFindAndModify: false });
 
 mongoose.connection.on('connected', () => {
     console.log("meanStackApp DB connected");

@@ -65,7 +65,7 @@
           "options": {
             "browserTarget": "frontend:build",
             "disableHostCheck": true,
-            "port": 1993
+            "port": 2019
           },
           "configurations": {
             "production": {
