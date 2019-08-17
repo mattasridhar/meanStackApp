@@ -9,7 +9,8 @@ var http = require('http');
 // //declaring constants
 const PORT = process.env.PORT || 1990;
 const HOST = '127.0.0.1';
-const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/meanStackApp';
+const mongoURI = 'mongodb+srv://overlordsridhar:Sri19dhar@inyugomean-6nh8y.gcp.mongodb.net/test?retryWrites=true&w=majority';
+//const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/meanStackApp';
 const services = require('./services/serviceUrls');
 const concernServices = require('./services/concernUrls');
 const recruiterServices = require('./services/recruiterUrls');
