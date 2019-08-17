@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var http = require('http');
 
 // //declaring constants
-const PORT = process.env.PORT || 1990;
+const PORT = process.env.PORT || 8080;
 const HOST = '127.0.0.1';
 const mongoURI = 'mongodb+srv://overlordsridhar:Sri19dhar@inyugomean-6nh8y.gcp.mongodb.net/test?retryWrites=true&w=majority';
 //const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/meanStackApp';
@@ -30,12 +30,26 @@ mongoose.connection.on('error', (e) => {
 }); */
 
 const MongoClient = require('mongodb').MongoClient;
+const gcpbucket = 'gs://demo-visionapi-atlas';
 const uri = "mongodb+srv://overlordsridhar:Sri19dhar@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+/* const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
     const collection = client.db("test").collection("devices");
     // perform actions on the collection object
     client.close();
+}); */
+
+MongoClient.connect(uri, (err, database) => {
+    if (err) {
+        return console.log(err);
+    }
+    console.log('Successfully connected to MongoDB Atlas');
+    db = database;
+    // start the express web server listening on 8080
+    app.listen(8080, () => {
+        console.log('listening on 8080');
+        console.log('Input GCP bucket is set to ' + gcpbucket);
+    });
 });
 
 
