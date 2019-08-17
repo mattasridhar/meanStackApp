@@ -39,15 +39,15 @@ client.connect(err => {
     client.close();
 }); */
 
-MongoClient.connect(uri, (err, database) => {
+MongoClient.connect(uri, { useNewUrlParser: true }, (err, database) => {
     if (err) {
         return console.log(err);
     }
     console.log('Successfully connected to MongoDB Atlas');
     db = database;
     // start the express web server listening on 8080
-    app.listen(8080, () => {
-        console.log('listening on 8080');
+    app.listen(PORT, () => {
+        console.log('listening on ' + PORT);
         console.log('Input GCP bucket is set to ' + gcpbucket);
     });
 });
