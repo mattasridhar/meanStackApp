@@ -29,9 +29,9 @@ mongoose.connection.on('error', (e) => {
     console.log(e + " \nError while connecting to meanStackApp");
 }); */
 
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
 const gcpbucket = 'gs://inyugo-mongo';
-const uri = "mongodb+srv://overlordsridhar:Sri19dhar@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
+// const uri = "mongodb+srv://overlordsridhar:Sri19dhar@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
 /* const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
     const collection = client.db("test").collection("devices");
@@ -39,7 +39,7 @@ client.connect(err => {
     client.close();
 }); */
 
-var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+/* var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 client.connect((err, database) => {
     if (err) {
@@ -52,17 +52,17 @@ client.connect((err, database) => {
         console.log('SRI listening on ' + PORT);
         console.log('Input GCP bucket is set to ' + gcpbucket);
     });
-});
+}); */
 
 
-/* const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://overlordsridhar:<password>@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://overlordsridhar:Sri19dhar@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-}); */
+    const collection = client.db("test").collection("devices");
+    // perform actions on the collection object
+    client.close();
+});
 
 
 
