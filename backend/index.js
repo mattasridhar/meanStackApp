@@ -63,6 +63,10 @@ client.connect(err => {
     // perform actions on the collection object
     client.close();
 });
+app.listen(8089, () => {
+    console.log('SRI listening on ' + PORT);
+    console.log('Input GCP bucket is set to ' + gcpbucket);
+});
 
 
 
