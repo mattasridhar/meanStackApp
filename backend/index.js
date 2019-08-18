@@ -30,7 +30,7 @@ mongoose.connection.on('error', (e) => {
 }); */
 
 const MongoClient = require('mongodb').MongoClient;
-const gcpbucket = 'gs://demo-visionapi-atlas';
+const gcpbucket = 'gs://inyugo-mongo';
 const uri = "mongodb+srv://overlordsridhar:Sri19dhar@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
 /* const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
@@ -48,11 +48,22 @@ client.connect((err, database) => {
     console.log('Successfully connected to MongoDB Atlas');
     db = database;
     // start the express web server listening on 8089
-    app.listen(PORT, () => {
+    app.listen(8089, () => {
         console.log('SRI listening on ' + PORT);
         console.log('Input GCP bucket is set to ' + gcpbucket);
     });
 });
+
+
+/* const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://overlordsridhar:<password>@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+}); */
+
 
 
 //app functions
