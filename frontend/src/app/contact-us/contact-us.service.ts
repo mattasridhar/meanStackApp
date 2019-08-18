@@ -8,7 +8,7 @@ import { resource } from 'selenium-webdriver/http';
 })
 export class ContactUsService {
 
-  private _URL = 'http://localhost:8089/contactus/';
+  private _URL = 'http://localhost:8080/contactus/';
 
   constructor(private http: Http) { }
 
