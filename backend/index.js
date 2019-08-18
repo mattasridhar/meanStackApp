@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var http = require('http');
 
 // //declaring constants
-const PORT = process.env.PORT || 8089;
+const PORT = process.env.PORT || 8080;
 const HOST = '127.0.0.1';
 const mongoURI = 'mongodb+srv://overlordsridhar:Sri19dhar@inyugomean-6nh8y.gcp.mongodb.net/test?retryWrites=true&w=majority';
 //const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/meanStackApp';
@@ -47,8 +47,8 @@ client.connect((err, database) => {
     }
     console.log('Successfully connected to MongoDB Atlas');
     db = database;
-    // start the express web server listening on 8089
-    app.listen(8089, () => {
+    // start the express web server listening on 8080
+    app.listen(8080, () => {
         console.log('SRI listening on ' + PORT);
         console.log('Input GCP bucket is set to ' + gcpbucket);
     });
@@ -59,11 +59,15 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://overlordsridhar:Sri19dhar@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
+    if (err) {
+        return console.log(err);
+    }
+    console.log('Successfully connected to MongoDB Atlas');
     const collection = client.db("test").collection("devices");
     // perform actions on the collection object
-    client.close();
+    // client.close();
 });
-/* app.listen(8089, () => {
+/* app.listen(8080, () => {
     console.log('SRI listening on ' + PORT);
     console.log('Input GCP bucket is set to ' + gcpbucket);
 }); */

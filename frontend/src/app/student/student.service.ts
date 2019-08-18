@@ -7,9 +7,9 @@ import { map } from 'rxjs/operators';
 })
 export class StudentService {
 
-  private _UserURL = 'http://localhost:8089/serve/';
-  private _StudentURL = 'http://localhost:8089/student/';
-  private _RecruiterURL = 'http://localhost:8089/recruiter/';
+  private _UserURL = 'http://localhost:8080/serve/';
+  private _StudentURL = 'http://localhost:8080/student/';
+  private _RecruiterURL = 'http://localhost:8080/recruiter/';
 
   constructor(private http: Http) { }
 
