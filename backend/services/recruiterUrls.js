@@ -13,7 +13,6 @@ router.get('/testRecruiter', (req, res, next) => {
 });
 
 router.get('/getAllJobs', (req, res, next) => {
-    console.log("SRI in rcruit getAllJobs");
     AppRecruiterSchema.find(function (err, jobs) {
         if (err) {
             res.json(err);
@@ -24,7 +23,6 @@ router.get('/getAllJobs', (req, res, next) => {
 });
 
 router.get('/getAllStudents', (req, res, next) => {
-    console.log("SRI in rcruit getAllStudents");
     AppStudentSchema.find(function (err, jobs) {
         if (err) {
             res.json(err);
@@ -47,7 +45,6 @@ router.get('/getAppliedJobs/:id', (req, res, next) => {
 });
 
 router.post('/storeJob', (req, res, next) => {
-    console.log(req.body);
     let appRecruiterJobs = new AppRecruiterSchema({
         title: req.body.title,
         company: req.body.company,
@@ -72,8 +69,6 @@ router.post('/storeJob', (req, res, next) => {
 });
 
 router.put('/editJob/:id', (req, res, next) => {
-    // console.log(req.params.id);
-    // console.log(req.body);
     AppRecruiterSchema.findOneAndUpdate({ _id: req.params.id }, {
         $set: {
             title: req.body.title,
@@ -98,8 +93,6 @@ router.put('/editJob/:id', (req, res, next) => {
 });
 
 router.delete('/deleteJob/:id', (req, res, next) => {
-    console.log(req.params.id);
-    console.log(req.body);
     AppRecruiterSchema.findOneAndDelete({ _id: req.params.id }, function (err, response) {
         if (err) {
             res.json({ response: 'Job has not been deleted due to: ' + err, status: "Error" });
@@ -113,8 +106,6 @@ router.delete('/deleteJob/:id', (req, res, next) => {
 });
 
 router.delete('/deleteAppliedJob/:id', (req, res, next) => {
-    console.log(req.params.id);
-    console.log(req.body);
     AppStudentSchema.findOneAndDelete({ _id: req.params.id }, function (err, response) {
         if (err) {
             res.json({ response: 'Applied Job has not been deleted due to: ' + err, status: "Error" });

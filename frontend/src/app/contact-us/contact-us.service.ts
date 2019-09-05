@@ -8,7 +8,7 @@ import { resource } from 'selenium-webdriver/http';
 })
 export class ContactUsService {
 
-  private _URL = 'http://localhost:8080/contactus/';
+  private _URL = 'http://localhost:1990/contactus/';
 
   constructor(private http: Http) { }
 
@@ -27,7 +27,6 @@ export class ContactUsService {
   }
 
   getSearchResponse(searchConcern) {
-    console.log("Search Service: " + searchConcern);
     return this.http.get(`${this._URL}getSearchResponse/` + searchConcern)
       .pipe(
         map(
@@ -37,7 +36,6 @@ export class ContactUsService {
   }
 
   getShowResponse(showConcern) {
-    console.log("Show Service: " + showConcern);
     return this.http.get(`${this._URL}getShowResponse/` + showConcern)
       .pipe(
         map(

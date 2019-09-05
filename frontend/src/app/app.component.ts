@@ -27,12 +27,9 @@ export class AppComponent {
     this.subscription = this.appService.isLogged$.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn)
 
     if (sessionStorage.getItem("sessionUser") !== null) {
-      // console.log("Recruit sessionUser: ", sessionStorage.getItem("sessionUser"));
       this.appService.toggleLogOut(false);
     } else {
-      // console.log("Recruit ELSE sessionUser: ", sessionStorage.getItem("sessionUser"));
       this.appService.toggleLogOut(true);
-      // this.router.navigate(['']);
     }
   }
 
@@ -43,9 +40,7 @@ export class AppComponent {
   logOut() {
     sessionStorage.setItem("sessionUser", null);
     sessionStorage.setItem("sessionUserId", null);
-    // isLoggedIn = false;
     this.appService.toggleLogOut(false);
-    // console.log("LogoutClicked", sessionStorage.getItem("sessionUser"));
     this.router.navigate(['']);
   }
 

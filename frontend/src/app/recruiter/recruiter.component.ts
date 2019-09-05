@@ -52,12 +52,10 @@ export class RecruiterComponent implements OnInit {
   ngOnInit() {
 
     if (sessionStorage.getItem("sessionUser") !== null) {
-      console.log("Recruit sessionUser: ", sessionStorage.getItem("sessionUser"));
       this.sessionUser = sessionStorage.getItem("sessionUser");
       this.recruiter = this.sessionUser;
       this.getAllJobs();
     } else {
-      console.log("Recruit ELSE sessionUser: ", sessionStorage.getItem("sessionUser"));
       this.recruiter = null;
       this.router.navigate(['']);
     }
@@ -67,32 +65,23 @@ export class RecruiterComponent implements OnInit {
   async getAllJobs() {
     await this.recruiterService.getAllJobs()
       .subscribe(appJobs => {
-        console.log(appJobs);
         this.getJobsToBeDisplayed(appJobs);
       });
   }
 
   getJobsToBeDisplayed(allJobs) {
-    // console.log("Sess: ", allJobs);
     allJobs.forEach(job => {
-      // console.log("Job Recrut: " + job.recruiter);
-      // console.log((job.recruiter === this.sessionUser));
       if (job.recruiter === this.sessionUser) {
-        // console.log("Job ID: ", job._id);
-        // console.log("Job Value: ", job.value);
         this.displayJobs.push(job);
       }
     });
   }
 
   populateEditJob(jobId) {
-    // console.log("ID", document.getElementById('jobId').innerText);
     this.isEditJob = true;
     this.showJobs = false;
     this.foundJobInfo = [];
     this.foundJobInfo.push(this.displayJobs.find(function (foundJob) {
-      // console.log("VALUE", jobId);
-      // console.log("VALUE FOUND", foundJob._id);
       return foundJob._id === jobId;
     }));
 
@@ -104,8 +93,6 @@ export class RecruiterComponent implements OnInit {
     this.location = this.foundJobInfo[0].location;
     this.description = this.foundJobInfo[0].description;
     this.qualification = this.foundJobInfo[0].qualification;
-
-    console.log(this.foundJobInfo);
   }
 
   saveEditedJob(form) {
@@ -123,24 +110,20 @@ export class RecruiterComponent implements OnInit {
     };
     this.recruiterService.editJob(editedJob)
       .subscribe(response => {
-        console.log("RespEdit: ", response);
         if ("Ok".includes(response.status)) {
           this.errorMessage = null;
           this.hasError = false;
           this.cancel();
           this.displayJobs = [];
           this.getAllJobs();
-          // this.router.navigate(['/recruiter']);
         } else {
           this.errorMessage = response.response;
           this.hasError = true;
         }
       })
-    // console.log("EditedJob: ", editedJob);
   }
 
   showApplicants(jobId) {
-    console.log("JobId:", jobId);
     this.isEditJob = false;
     this.isNewJob = false;
     this.showJobs = false;
@@ -148,7 +131,6 @@ export class RecruiterComponent implements OnInit {
     this.showApplicant = false;
     this.jobApplicants = [];
     this.getAllApplicants(jobId);
-    console.log("appls: ", this.jobApplicants);
   }
 
   async getAllApplicants(jobId) {
@@ -158,20 +140,14 @@ export class RecruiterComponent implements OnInit {
   }
 
   async viewApplicant(applicantId, jobId) {
-    console.log("applicantId:", applicantId);
-    console.log("jobId:", jobId);
     this.isEditJob = false;
     this.isNewJob = false;
     this.showJobs = false;
     this.showJobApplicants = false;
-    // this.showApplicant = true;
     this.applicantJobInfo = null;
     this.applicantInfo = null;
-    // this.jobApplicants = [];
     await this.getApplicantInfo(applicantId);
     await this.getApplicantJobInfo(applicantId, jobId);
-    // console.log("ApplicantJobInfo: ", this.applicantJobInfo);
-    // console.log("ApplicantInfo: ", this.applicantInfo);
   }
 
   async getApplicantInfo(studentId) {
@@ -193,15 +169,9 @@ export class RecruiterComponent implements OnInit {
 
   //ToDo: Needs more work
   async rejectAppliedJob(appliedJobId, applicantFirstName, applicantLastName, applicantEmail) {
-    console.log("DELETED ApplFirstName:", applicantFirstName);
-    console.log("DELETED ApplLastName:", applicantLastName);
-    console.log("DELETED ApplEmail:", applicantEmail);
-    console.log("DELETED APPLIED JOBID", appliedJobId);
     this.jobApplicants = [];
     await this.studentService.deleteAppliedJob(appliedJobId)
       .subscribe(async response => {
-        // console.log("RESP:", response.status);
-        // console.log("RESP Cond:", "Ok".includes(response.status));
         if ("Ok".includes(response.status)) {
           this.showJobApplicants = true;
           await this.getAllApplicants(appliedJobId);
@@ -216,18 +186,11 @@ export class RecruiterComponent implements OnInit {
   }
 
   deleteJob(deletedJobId) {
-    console.log("DELETED JOBID", deletedJobId);
     let newDisplayJobsList: appJobSchema[] = [];
     this.recruiterService.deleteJob(deletedJobId)
       .subscribe(response => {
-        // console.log("RESP:", response.status);
-        // console.log("RESP Cond:", "Ok".includes(response.status));
         if ("Ok".includes(response.status)) {
-          /* newDisplayJobsList.push(this.displayJobs.find(function (oldJobs) {
-            return oldJobs._id !== deletedJobId;
-          })); */
           this.displayJobs = [];
-          // this.displayJobs = newDisplayJobsList;
           this.getAllJobs();
         }
       })
@@ -246,7 +209,6 @@ export class RecruiterComponent implements OnInit {
       recruiter: this.recruiter
     }
     this.recruiterService.storeJob(newJob).subscribe(job => {
-      console.log("New Job ID: ", job._id);
       this.isEditJob = false;
       this.isNewJob = false;
       this.displayJobs = [];

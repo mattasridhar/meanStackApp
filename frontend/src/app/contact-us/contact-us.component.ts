@@ -49,7 +49,6 @@ export class ContactUsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.speechService.init();
-    // this.concernSpoken = this.speechService.concernSpoken;
     if (this.speechService.speechSupported) {
       this.speechService.startListening();
       this._listenForClear();
@@ -63,7 +62,6 @@ export class ContactUsComponent implements OnInit, OnDestroy {
   }
 
   get infoText(): String {
-    // this.concernSpoken = "";
     return (this.speechService.isListening && this.speechService.isCapturingConcerns) ?
       'InYuGo is now listening to you queries. ' +
       'Use keyboard if you want to tweak your spoken concern.' :
@@ -77,7 +75,6 @@ export class ContactUsComponent implements OnInit, OnDestroy {
     ).subscribe(
       clearString => {
         this._setError();
-        // this.clearQuery = clearString;
         if (clearString.includes("field") || clearString.includes("search") || clearString.includes("query")) {
           this.concernSpoken = "";
           this.resultFetched = "";
@@ -94,8 +91,6 @@ export class ContactUsComponent implements OnInit, OnDestroy {
     ).subscribe(
       stopString => {
         this._setError();
-        // this.stopQuery = stopString;
-        // console.log('stopQuery:', this.stopQuery);
         if (stopString.includes("listen")) {
           this.speechService.stopListening();
         }
@@ -111,7 +106,6 @@ export class ContactUsComponent implements OnInit, OnDestroy {
       searchString => {
         this._setError();
         this.concernSpoken = "Search " + searchString;
-        // console.log('searchQuery:', this.concernSpoken);
         this._fetchResultsForSearchConcerns(this.concernSpoken);
       }
     );
@@ -125,7 +119,6 @@ export class ContactUsComponent implements OnInit, OnDestroy {
       showString => {
         this._setError();
         this.concernSpoken = "Show " + showString;
-        console.log('showQuery:', this.concernSpoken);
         this._fetchResultsForShowConcerns(this.concernSpoken);
       }
     );
@@ -139,7 +132,6 @@ export class ContactUsComponent implements OnInit, OnDestroy {
       concernString => {
         this._setError();
         this.concernSpoken = concernString.word;
-        // console.log('concernQuery:', this.concernSpoken);
         if (this.concernSpoken.includes("stop listen")) {
           this.speechService.stopListening();
         } else {
@@ -169,16 +161,12 @@ export class ContactUsComponent implements OnInit, OnDestroy {
     this._resetResultFields();
     this.contactUsService.getSearchResponse(searchConcern)
       .subscribe(response => {
-        // this.appConcerns = response;
-        // console.log("Search appConcern: ", this.appConcerns);
         if (response !== null && response.answer !== null) {
-          // console.log("IF appConcern: ", this.appConcerns);
           this.concernRaised = this.concernSpoken;
           this.hasResults = true;
           this.resultFetched = response.answer;
           this.hasResultError = false;
         } else {
-          // console.log("ELSE appConcern: ", this.appConcerns);
           this.hasResultError = true;
         }
 
@@ -190,16 +178,12 @@ export class ContactUsComponent implements OnInit, OnDestroy {
     this._resetResultFields();
     this.contactUsService.getSearchResponse(showConcern)
       .subscribe(response => {
-        // this.appConcerns = response;
-        // console.log("Show appConcern: ", this.appConcerns);
         if (response !== null && response.answer !== null) {
-          // console.log("IF appConcern: ", this.appConcerns);
           this.concernRaised = this.concernSpoken;
           this.hasResults = true;
           this.resultFetched = response.answer;
           this.hasResultError = false;
         } else {
-          // console.log("ELSE appConcern: ", this.appConcerns);
           this.hasResultError = true;
         }
 
@@ -213,17 +197,13 @@ export class ContactUsComponent implements OnInit, OnDestroy {
     this.contactUsService.getAllConcerns()
       .subscribe(response => {
         this.appConcerns = response;
-        // console.log("Other appConcern: ", this.appConcerns);
         this.appConcerns.forEach(eachConcern => {
-          // console.log("eachConcern: " + eachConcern);
           this.resultFetched = this.resultFetched.concat(eachConcern.question.concat('\n\t'.concat(eachConcern.answer.concat('\n'))));
         });
         if (this.resultFetched.length > 0) {
-          console.log("IF ResultFetch: " + this.resultFetched);
           this.concernRaised = this.concernSpoken;
           this.hasResults = true;
         } else {
-          console.log("ELSE ResultFetch-appConcern: ", this.appConcerns);
           this.hasResultError = true;
         }
       });

@@ -51,34 +51,26 @@ export class LoginComponent implements OnInit {
   getUsers() {
     this.loginService.getUsers()
       .subscribe(appUsers => {
-        // console.log(appUsers);
         this.appUsers = appUsers;
       });
   }
 
   loginUser(form) {
-    // console.log(form.value);
     this.redirectToMainPage = false;
     this.isLogin = true;
     this.getUsers();
     this.appUsers.forEach(user => {
-      // console.log(user.username + " :: " + user.password);
       if ((user.username === form.value.username) && !this.redirectToMainPage) {
-        // console.log("\t" + form.value.username);
         if (user.password === form.value.password) {
-          // console.log("\t" + form.value.password);
           this.sessionUser = user;
           this.redirectToMainPage = true;
         }
       }
     });
     if (this.redirectToMainPage) {
-      // this.storage.set("sessionUser", this.sessionUser.username);
       sessionStorage.setItem("sessionUser", this.sessionUser.username.toString());
       sessionStorage.setItem("sessionUserId", this.sessionUser._id.toString());
-      // this.isLoggedIn = true;
       this.appService.toggleLogOut(true);
-      // console.log(this.isLoggedIn);
       if (this.sessionUser.isRecruiter && this.sessionUser.isAdmin) {
         this.router.navigate(['/recruiter']);
       } else if (this.sessionUser.isAdmin) {
@@ -90,7 +82,6 @@ export class LoginComponent implements OnInit {
       }
     } else {
       this.resetPage();
-      // this.isLoggedIn = false;
       this.appService.toggleLogOut(false);
       this.hasError = true;
       this.errorMessage = "Incorrect Username and Password. Please Login with correct credentials";
@@ -101,7 +92,6 @@ export class LoginComponent implements OnInit {
     this.resetPage();
     this.isLogin = false;
     this.hasError = false;
-    // console.log(this.isLogin);
     let formValue = form.value;
     if (!(formValue.username === "") && (formValue.password === formValue.verifyPassword)) {
       console.log("Saving new User");
@@ -120,8 +110,6 @@ export class LoginComponent implements OnInit {
       };
 
       this.loginService.addUser(newUser).subscribe(user => {
-        console.log(user);
-        console.log(user._id);
         this.getUsers();
       });
     }

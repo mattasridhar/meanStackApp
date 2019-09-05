@@ -2,24 +2,13 @@
     <div class="jumbotron">
         <h1>InYuGo</h1>
         <marquee>This is a Recruiting Application built on <b>'MEAN'</b> Stack</marquee>
-        <!-- <div class="">
-            <h6 class="btn btn-link" (click)="contactUs()">Contact Us</h6>
-
-            <button type="reset" class="btn btn-danger" (click)="logOut()" *ngIf="isLoggedIn">LogOut</button>
-        </div> -->
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group mr-2" role="group">
-
                 <button class="btn btn-danger" (click)="logOut()" *ngIf="isLoggedIn">LogOut</button>
                 <button class="btn btn-link" (click)="contactUs()">Contact Us</button>
             </div>
         </div>
     </div>
-    <!-- <div class="panel panel-primary">
-        <div class="panel-body">
-            <app-login></app-login>
-        </div>
-    </div> -->
 </div>
 
 <router-outlet></router-outlet>

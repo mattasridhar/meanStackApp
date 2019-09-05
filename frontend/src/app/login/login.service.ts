@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class LoginService {
 
-  private _URL = 'http://localhost:8080/serve/';
+  private _URL = 'http://localhost:1990/serve/';
 
   constructor(private http: Http) { }
 
@@ -22,7 +22,6 @@ export class LoginService {
   }
 
   addUser(newUser) {
-    console.log("SRI in addUser Service");
     let headers = new Headers();
     headers.append('Access-Control-Allow-Credentials', 'true');
     headers.append('Content-Type', 'application/json');

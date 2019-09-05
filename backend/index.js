@@ -5,21 +5,23 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoose = require('mongoose');
 var http = require('http');
+const path = require('path');
 
 // //declaring constants
-const PORT = process.env.PORT || 8080;
-const HOST = '127.0.0.1';
-const mongoURI = 'mongodb+srv://overlordsridhar:Sri19dhar@inyugomean-6nh8y.gcp.mongodb.net/test?retryWrites=true&w=majority';
-//const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/meanStackApp';
+const PORT = 1990;
+const env = require('./env/environment');
 const services = require('./services/serviceUrls');
 const concernServices = require('./services/concernUrls');
 const recruiterServices = require('./services/recruiterUrls');
 const studentServices = require('./services/studentUrls');
 
 var app = express();
+const root = './';
+
+mongoose.Promise = global.Promise;
 
 //connecting MongoDb
-/* mongoose.connect(mongoURI, { useNewUrlParser: true, useFindAndModify: false });
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/meanStackApp', { useNewUrlParser: true, useFindAndModify: false });
 
 mongoose.connection.on('connected', () => {
     console.log("meanStackApp DB connected");
@@ -27,56 +29,13 @@ mongoose.connection.on('connected', () => {
 
 mongoose.connection.on('error', (e) => {
     console.log(e + " \nError while connecting to meanStackApp");
-}); */
-
-// const MongoClient = require('mongodb').MongoClient;
-const gcpbucket = 'gs://inyugo-mongo';
-// const uri = "mongodb+srv://overlordsridhar:Sri19dhar@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
-/* const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    client.close();
-}); */
-
-/* var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-client.connect((err, database) => {
-    if (err) {
-        return console.log(err);
-    }
-    console.log('Successfully connected to MongoDB Atlas');
-    db = database;
-    // start the express web server listening on 8080
-    app.listen(8080, () => {
-        console.log('SRI listening on ' + PORT);
-        console.log('Input GCP bucket is set to ' + gcpbucket);
-    });
-}); */
-
-
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://overlordsridhar:Sri19dhar@inyugomeancluster-a604b.gcp.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-    if (err) {
-        return console.log(err);
-    }
-    console.log('Successfully connected to MongoDB Atlas');
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    // client.close();
 });
-/* app.listen(8080, () => {
-    console.log('SRI listening on ' + PORT);
-    console.log('Input GCP bucket is set to ' + gcpbucket);
-}); */
-
-
 
 //app functions
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(root, 'dist')));
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

@@ -22,7 +22,6 @@ router.get('/getAllConcerns', (req, res, next) => {
 })
 
 router.post('/answerConcern', (req, res, next) => {
-    console.log(req.body);
     let appConcern = new AppConcernSchema({
         question: req.body.question,
         answer: req.body.answer,
@@ -62,8 +61,6 @@ router.get('/getShowResponse/:question', (req, res, next) => {
 });
 
 router.put('/editResponse/:id', (req, res, next) => {
-    // console.log(req.params.id);
-    // console.log(req.body);
     AppConcernSchema.findOneAndUpdate({ _id: req.params.id }, {
         $set: {
             question: req.body.question,
@@ -79,8 +76,6 @@ router.put('/editResponse/:id', (req, res, next) => {
 });
 
 router.delete('/deleteConcern/:id', (req, res, next) => {
-    console.log(req.params.id);
-    console.log(req.body);
     AppConcernSchema.findOneAndDelete({ _id: req.params.id }, function (err, response) {
         if (err) {
             res.json({ response: 'Concern has not been deleted due to: ' + err });

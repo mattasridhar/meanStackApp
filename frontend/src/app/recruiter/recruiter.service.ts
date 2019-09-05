@@ -7,9 +7,9 @@ import { map } from 'rxjs/operators';
 })
 export class RecruiterService {
 
-  private _UserURL = 'http://localhost:8080/serve/';
-  private _RecruiterURL = 'http://localhost:8080/recruiter/';
-  private _StudentURL = 'http://localhost:8080/student/';
+  private _UserURL = 'http://localhost:1990/serve/';
+  private _RecruiterURL = 'http://localhost:1990/recruiter/';
+  private _StudentURL = 'http://localhost:1990/student/';
 
   constructor(private http: Http) { }
 
@@ -41,7 +41,6 @@ export class RecruiterService {
   }
 
   storeJob(newJob) {
-    console.log("SRI in storeJob Service");
     let headers = new Headers();
     headers.append('Access-Control-Allow-Credentials', 'true');
     headers.append('Content-Type', 'application/json');
@@ -54,7 +53,6 @@ export class RecruiterService {
   }
 
   editJob(editedJob) {
-    console.log("SRI in editedJob Service");
     let headers = new Headers();
     headers.append('Access-Control-Allow-Credentials', 'true');
     headers.append('Content-Type', 'application/json');
@@ -67,7 +65,6 @@ export class RecruiterService {
   }
 
   deleteJob(jobId) {
-    console.log("SRI in deletedJob Service", (`${this._RecruiterURL}deleteJob/` + jobId));
     return this.http.delete(`${this._RecruiterURL}deleteJob/` + jobId)
       .pipe(
         map(
@@ -77,7 +74,6 @@ export class RecruiterService {
   };
 
   deleteAppliedJob(studentId) {
-    console.log("SRI in deletedJob Service", (`${this._StudentURL}deleteAppliedJob/` + studentId));
     return this.http.delete(`${this._StudentURL}deleteAppliedJob/` + studentId)
       .pipe(
         map(

@@ -17,7 +17,6 @@ router.get('/getSessionUser/:id', (req, res, next) => {
         if (err) {
             res.json(err);
         } else {
-            // console.log("usr: ", user);
             res.json(user);
         }
     });
@@ -34,7 +33,6 @@ router.get('/getUsers', (req, res, next) => {
 });
 
 router.post('/addUser', (req, res, next) => {
-    console.log(req.body);
     let appUser = new AppUserSchema({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -59,8 +57,6 @@ router.post('/addUser', (req, res, next) => {
 });
 
 router.put('/editUser/:id', (req, res, next) => {
-    // console.log(req.params.id);
-    // console.log(req.body);
     AppUserSchema.findOneAndUpdate({ _id: req.params.id }, {
         $set: {
             firstname: req.body.firstname,
@@ -85,8 +81,6 @@ router.put('/editUser/:id', (req, res, next) => {
 });
 
 router.delete('/deleteUser/:id', (req, res, next) => {
-    console.log(req.params.id);
-    console.log(req.body);
     AppUserSchema.findOneAndDelete({ _id: req.params.id }, function (err, response) {
         if (err) {
             res.json({ response: 'User has not been deleted due to: ' + err });

@@ -7,9 +7,9 @@ import { map } from 'rxjs/operators';
 })
 export class StudentService {
 
-  private _UserURL = 'http://localhost:8080/serve/';
-  private _StudentURL = 'http://localhost:8080/student/';
-  private _RecruiterURL = 'http://localhost:8080/recruiter/';
+  private _UserURL = 'http://localhost:1990/serve/';
+  private _StudentURL = 'http://localhost:1990/student/';
+  private _RecruiterURL = 'http://localhost:1990/recruiter/';
 
   constructor(private http: Http) { }
 
@@ -41,7 +41,6 @@ export class StudentService {
   }
 
   applyJob(appliedJob) {
-    console.log("SRI in applyJob Service");
     let headers = new Headers();
     headers.append('Access-Control-Allow-Credentials', 'true');
     headers.append('Content-Type', 'application/json');
@@ -54,7 +53,6 @@ export class StudentService {
   }
 
   editAppliedJob(editAppliedJob) {
-    console.log("SRI in editAppliedJob Service");
     let headers = new Headers();
     headers.append('Access-Control-Allow-Credentials', 'true');
     headers.append('Content-Type', 'application/json');
@@ -67,7 +65,6 @@ export class StudentService {
   }
 
   deleteAppliedJob(studentId) {
-    console.log("SRI in deletedAppliedJob Service", (`${this._StudentURL}deleteAppliedJob/` + studentId));
     return this.http.delete(`${this._StudentURL}deleteAppliedJob/` + studentId)
       .pipe(
         map(
