@@ -26,7 +26,6 @@ SPECIFICATIONS\
 		<li> isRecruiter, isStudent, isAdmin Checkboxes</li>
 		</ul>
 	<pre>If ‘isAdmin’ option is selected, then it must be approved by another admin for access.(WIP)</pre>
-	
 	<pre>When a company wants to post a job offer, the following information should be provided:</pre>
 	<ul>
 	<li> Job Title: For example: “Software Developer”, “Full Stack Developer” etc</li>
@@ -37,7 +36,6 @@ SPECIFICATIONS\
 	<li> Qualification</li>
 	<li> Description</li>
 	</ul>
-	
 	<pre>When an applicant applies for a posted job, the following information is requested:</pre>
 		<ul>
 		<li> Contact</li>
@@ -46,26 +44,22 @@ SPECIFICATIONS\
 		<li> About Me: This is a brief description about the applicant</li>
 		<li> Qualification</li>
 	</ul>
-	
 	<pre>The web application should display the following information regarding the applicants that applied for each job offer:</pre>
 			<ul>
 				<li> Full name</li>
 				<li> Qualification</li>
 				<li> View Applicant Button to display the full information of the Applicant which includes all the fields filled by the applicant at the time of submitting the job application</li>
 				<li> Reject Application Button to reject the submitted application</li>
-			</ul>
-			
+			</ul>		
 	<pre>The web application should facilitate to the recruiter, the following options for each Job opening regarding the applicants that applied for each job offer:</pre>
 		<ul>
 			<li> ‘Reject’ Button</li>
 			<li> ‘Accept’ Button (WIP) </li>
-		</ul>
-		
+		</ul>	
 	<pre> The web application should facilitate to the applicant, the following options regarding the submitted job application for each job offer:</pre>
 		<ul>
 			<li> ‘Delete Applied Job’ Button to withdraw the submitted application</li>
-		</ul>
-			
+		</ul>	
 	<pre>The web application should facilitate to the user to speak a set of command in-order to search his concerns in the Contact Us page. He should also have the facility of typing his concerns and hit a Search button:</pre>
 		<ul>
 			<li> ‘Mic’ On/Off icon to toggle the voice recognition features active or in-active</li>
