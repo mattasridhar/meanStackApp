@@ -12,6 +12,9 @@ TABLE OF CONTENTS\
 INTRODUCTION\
 	This recruiting web application is built completely on MEAN stack. MongoDb for database, Express, Node for handling backend API calls and Angular 4 for the frontend User Interface. 
 	Apart from the general service call handling and manipulation of the retrieved data, The Contact Us option has Voice recognition embedded into it. The User can speak his query and the respective response will be fetched and displayed to the user. The User can speak specific commands to activate or de-activate the voice recognition feature. 
+<b>Check out this video to see Voice Recognition Feature in action.</b>
+
+[![](http://img.youtube.com/vi/pm9W9N3ZjqY/0.jpg)](https://www.youtube.com/watch?v=pm9W9N3ZjqY)
 
 SPECIFICATIONS\
 	<pre>For a User to register himself, He has to provide the following information:</pre>
