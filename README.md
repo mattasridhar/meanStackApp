@@ -17,6 +17,9 @@ INTRODUCTION\
 [![](http://img.youtube.com/vi/pm9W9N3ZjqY/0.jpg)](https://www.youtube.com/watch?v=pm9W9N3ZjqY)
 <pre><i>If the above video doesn't seem to work, you can find the same clip of Demo at (~/readme_images/voiceRecognitionDemo.mov) location.</i></pre>
 
+<br><pre>Check the sample screens in the snippet</pre>
+![](readme_images/meanStackAppDemo.gif)
+
 SPECIFICATIONS\
 	<pre>For a User to register himself, He has to provide the following information:</pre>
 		<ul>
