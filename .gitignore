@@ -45,3 +45,6 @@ testem.log
 .DS_Store
 Thumbs.db
 .DS_Store
+backend/package-lock.json
+frontend/package-lock.json
+.DS_Store
